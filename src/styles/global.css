@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: all;
+}
+
+@layer {
+  /** md code */
+  article figure pre {
+    @apply p-3 my-2 border border-base-200 rounded-lg w-full overflow-x-auto;
+  }
+  article figure pre code {
+    @apply bg-transparent;
+    counter-reset: line;
+  }
+  /* 为每个带有 data-line 的 span 添加行号 */
+  /* article figure pre code span[data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    @apply inline-block w-4 text-right mr-4 text-zinc-600 select-none;
+  } */
+
+  article *:not(figure, figure *) {
+    @apply break-words; /* Allows breaking long words to prevent overflow */
+  }
+
+  /** style inline code (code not wrapped by pre) */
+  article code {
+    @apply px-1 py-0.5 font-mono text-sm text-base-content rounded bg-base-300;
+  }
+
+  /** md list */
+  article ul > li {
+    @apply list-disc list-inside pl-4;
+  }
+
+  article ol > li {
+    @apply list-decimal list-inside pl-4;
+  }
+
+  /** md link */
+  article a,
+  .richtext_link {
+    @apply text-primary underline underline-offset-2 decoration-1;
+  }
+
+  /** md underline */
+  article u,
+  .richtext_underline {
+    @apply underline underline-offset-2 decoration-1;
+  }
+
+  /** md headings */
+  article h1,
+  article h2,
+  article h3,
+  article h4,
+  article h5,
+  article h6 {
+    @apply font-semibold my-4;
+  }
+
+  article h1 {
+    @apply text-lg;
+  }
+  article h2,
+  article h3,
+  article h4,
+  article h5,
+  article h6 {
+    @apply text-sm;
+  }
+
+  article h1::before,
+  article h2::before,
+  article h3::before,
+  article h4::before,
+  article h5::before,
+  article h6::before {
+    @apply text-xs text-zinc-500 mr-1 opacity-30;
+  }
+  article h1::before {
+    content: "H1";
+  }
+  article h2::before {
+    content: "H2";
+  }
+  article h3::before {
+    content: "H3";
+  }
+  article h4::before {
+    content: "H4";
+  }
+  article h5::before {
+    content: "H5";
+  }
+  article h6::before {
+    content: "H6";
+  }
+
+  article blockquote {
+    @apply p-3 my-2 border-l-4 border-base-300 bg-base-200 rounded-lg;
+  }
+
+  /** animate */
+  .animate {
+    @apply opacity-0 translate-y-3;
+    @apply transition-all duration-700 ease-out;
+  }
+
+  .animate.show {
+    @apply opacity-100 translate-y-0;
+  }
+}

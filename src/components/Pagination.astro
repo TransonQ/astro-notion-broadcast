@@ -1,0 +1,68 @@
+---
+import type { Page } from "astro"
+import { cn } from "../lib/cn.ts"
+import { parsePaginateUrl } from "../lib/parse-paginate-url"
+import type { DM_Post } from "../types/data-model"
+
+interface Props {
+  page: Page<DM_Post>
+}
+const { page } = Astro.props
+const { prefix, totalPages } = parsePaginateUrl(page)
+const options = Array.from({ length: totalPages }, (_, i) => ({
+  label: (i + 1).toString(),
+  href: `${prefix}${i + 1}`,
+}))
+const onlyOnePage = totalPages === 1
+const disabledPrev = !page.url.prev
+const disabledNext = !page.url.next
+---
+
+<div class={cn("join grid grid-cols-3 w-full md:w-auto mt-8", { hidden: onlyOnePage })}>
+  <a
+    class={cn("join-item btn btn-outline", { "btn-disabled": disabledPrev })}
+    href={page.url.prev}
+  >
+    {"Previous"}
+  </a>
+
+  <button
+    class="join-item btn btn-outline"
+    popovertarget="pagination-popover"
+    style="anchor-name:--anchor-pagination-popover"
+  >
+    {page.currentPage}
+  </button>
+  <ul
+    class={cn(
+      "dropdown dropdown-center dropdown-top menu rounded-box bg-base-100 shadow-sm border",
+      "w-full md:w-24",
+      "max-h-6/12"
+    )}
+    popover
+    id="pagination-popover"
+    style="position-anchor:--anchor-pagination-popover"
+  >
+    {
+      options.map((option) => {
+        return (
+          <li>
+            <a
+              href={option.href}
+              class="flex justify-center"
+            >
+              {option.label}
+            </a>
+          </li>
+        )
+      })
+    }
+  </ul>
+
+  <a
+    class={cn("join-item btn btn-outline", { "btn-disabled": disabledNext })}
+    href={page.url.next}
+  >
+    {"Next"}
+  </a>
+</div>

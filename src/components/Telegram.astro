@@ -1,0 +1,29 @@
+---
+import { cn } from "../lib/cn"
+
+interface Props {
+  href: string
+}
+const { href } = Astro.props as Props
+---
+
+<a
+  class={cn("cursor-pointer", { hidden: !href })}
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  title="Telegram"
+  aria-label="Telegram"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    class="fill-current hover:fill-cyan-500"
+  >
+    <path
+      d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71l-4.39-3.24-2.05 1.98c-.18.17-.34.34-.69.34z"
+    ></path>
+  </svg>
+</a>

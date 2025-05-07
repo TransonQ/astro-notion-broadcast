@@ -1,0 +1,38 @@
+---
+import type { GetStaticPaths, Page } from "astro"
+import { get } from "lodash-es"
+import { getDatabaseAllPosts, getDatabaseMeta } from "../../../apis/client"
+import Posts from "../../../components/Posts.astro"
+import { PAGE_SIZE } from "../../../constants"
+import HomeLayout from "../../../layouts/HomeLayout.astro"
+import Layout from "../../../layouts/Layout.astro"
+import type { DM_Post } from "../../../types/data-model"
+
+interface PageProps {
+  page: Page<DM_Post>
+}
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const Allosts = await getDatabaseAllPosts()
+  const metadata = await getDatabaseMeta()
+  const categories = get(metadata, "categories", []) as string[]
+
+  return categories.flatMap((category) => {
+    const posts = Allosts.filter((post) => {
+      /** category is single select */
+      const categoryName = get(post, "properties.category.name")
+      return categoryName === category
+    })
+
+    return paginate(posts, { pageSize: PAGE_SIZE, params: { category } })
+  })
+}
+
+const { page } = Astro.props as unknown as PageProps
+---
+
+<Layout>
+  <HomeLayout>
+    <Posts page={page} />
+  </HomeLayout>
+</Layout>

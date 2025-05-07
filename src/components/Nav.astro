@@ -1,0 +1,37 @@
+---
+import { LABEL_CATEGORY, LABEL_TAGS } from "../constants"
+import Accordion from "./Accordion.astro"
+import Tags from "./Tags.astro"
+
+interface Props {
+  title: string
+  description: string
+  tags?: string[]
+  categories?: string[]
+}
+
+const { title, description, tags = [], categories = [] } = Astro.props as unknown as Props
+---
+
+<div class="hidden md:block md:sticky md:top-4">
+  <div class="join join-vertical rounded-sm">
+    <Accordion
+      title={title}
+      checked
+    >
+      {description}
+    </Accordion>
+    <Accordion title={LABEL_CATEGORY}>
+      <Tags
+        type="category"
+        tags={categories}
+      />
+    </Accordion>
+    <Accordion title={LABEL_TAGS}>
+      <Tags
+        type="tags"
+        tags={tags}
+      />
+    </Accordion>
+  </div>
+</div>

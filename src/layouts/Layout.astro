@@ -1,0 +1,76 @@
+---
+import { getDatabaseMeta } from "../apis/client"
+import Animate from "../components/Animate.astro"
+import { SITE } from "../constants"
+import "../styles/global.css"
+import { parseFavicon } from "../lib/parse-favicon"
+import { parseIcon } from "../lib/parse-icon"
+import { generateOgImage } from "../lib/generate-og-image"
+
+const metadata = await getDatabaseMeta()
+const { title, icon, cover } = metadata
+
+const favicon = parseFavicon("/favicon.svg", icon)
+const siteTitle = title || SITE.TITLE
+const siteDescription = SITE.DESCRIPTION
+const { url } = parseIcon(cover)
+let ogImage = url
+if (!url) {
+  ogImage = generateOgImage({ title: siteTitle, description: siteDescription })
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={favicon}
+    />
+    <meta
+      name="generator"
+      content={Astro.generator}
+    />
+    <title>{siteTitle}</title>
+    <meta
+      property="og:title"
+      content={siteTitle}
+    />
+    <meta
+      property="og:image"
+      content={ogImage}
+    />
+    <meta
+      property="og:type"
+      content="website"
+    />
+    <meta
+      property="og:description"
+      content={siteDescription}
+    />
+    <script type="module">
+      if (!("anchorName" in document.documentElement.style)) {
+        import("https://unpkg.com/@oddbird/css-anchor-positioning")
+      }
+    </script>
+    <Animate />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>

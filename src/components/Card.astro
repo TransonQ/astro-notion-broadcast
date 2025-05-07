@@ -1,0 +1,68 @@
+---
+import { isEmpty } from "lodash-es"
+import Tags from "./Tags.astro"
+
+interface Props {
+  title: string | null
+  content: string | null
+  tags?: string[]
+  category: string | null
+  url: string | null
+  preview: string | null
+  createdTime?: string | null
+}
+
+const { title, content, tags, category, url, preview, createdTime } = Astro.props
+---
+
+<div class="animate card bg-base-100 border border-base-300">
+  <span class="text-xs text-shadow absolute bottom-2 right-2 px-1 rounded-2xl z-10 opacity-70 bg-base-100">
+    {createdTime}
+  </span>
+  <div class="card-body relative px-3 md:p-5">
+    <h2 class="card-title">{title}</h2>
+    <article data-content set:html={content} />
+
+    <div>
+      {
+        url && (
+          <a
+            class="link link-primary break-words"
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {url}
+          </a>
+        )
+      }
+    </div>
+    <div
+      data-category-tags
+      class="join"
+    >
+      <Tags
+        type="category"
+        direction="row"
+        tags={category ? [category] : []}
+      />
+      {!isEmpty(tags) && !isEmpty(category) && <div class="divider divider-horizontal m-0" />}
+      <Tags
+        type="tags"
+        direction="row"
+        tags={tags}
+      />
+    </div>
+  </div>
+  {
+    preview && (
+      <figure>
+        <img
+          src={preview}
+          alt={title}
+          loading="lazy"
+        />
+      </figure>
+    )
+  }
+</div>

@@ -1,0 +1,67 @@
+---
+import { get } from "lodash-es"
+import { cn } from "../lib/cn"
+import type { DM_Post } from "../types/data-model"
+import Avatar from "./Avatar.astro"
+import Drawer from "./Drawer.astro"
+import Filtered from "./Filtered.astro"
+import ThemeToggle from "./ThemeToggle.astro"
+
+const params = Astro.params
+const category = get(params, "category", null)
+const tag = get(params, "tag", null)
+const filtered = category || tag
+
+interface Props {
+  title: string
+  description: string
+  tags: string[]
+  categories: string[]
+  icon: DM_Post["icon"]
+}
+const { title, description, tags, categories, icon } = Astro.props
+---
+
+<div class={cn("navbar bg-base-100 shadow-sm flex justify-between", "sticky top-0 z-10", "md:relative")}>
+  <div
+    data-header-title
+    class="flex items-center gap-1"
+  >
+    <Drawer
+      icon={icon}
+      title={title}
+      description={description}
+      tags={tags}
+      categories={categories}
+      className="md:hidden pl-2 max-w-12 shrink-0"
+    />
+    <Avatar
+      icon={icon}
+      className="hidden md:block pl-2"
+    />
+    <a
+      class="md:btn md:btn-ghost md:text-xl text-lg font-semibold text-nowrap"
+      href="/"
+    >
+      {title}
+    </a>
+
+    <div
+      data-filter
+      class={cn("flex items-center flex-1 flex-nowrap", { hidden: !filtered })}
+    >
+      <div
+        class="tooltip tooltip-bottom px-2 py-1 flex items-center gap-1 md:border text-xs rounded-full md:rounded-2xl text-base-content"
+        data-tip={filtered}
+      >
+        <Filtered className="w-4 h-4" />
+        <div class={cn("max-w-80 text-nowrap overflow-hidden text-ellipsis", "hidden md:block")}>
+          {filtered}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-1 flex justify-end">
+    <ThemeToggle />
+  </div>
+</div>

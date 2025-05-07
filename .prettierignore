@@ -1,0 +1,7 @@
+# Ignore artifacts
+dist
+node_modules
+.cache
+*.log
+*.png
+.npmrc

@@ -1,0 +1,56 @@
+---
+import type { Page } from "astro"
+import type { DM_Post } from "../types/data-model"
+import Card from "./Card.astro"
+import Pagination from "./Pagination.astro"
+
+interface Props {
+  page: Page<DM_Post>
+}
+
+const { page } = Astro.props as unknown as Props
+---
+
+<div
+  data-posts
+  class="h-full flex flex-col justify-between"
+>
+  <div
+    data-posts-container
+    class="flex flex-col gap-4"
+  >
+    {
+      page.data.map((post) => {
+        const createdTime = post.createdTime
+          ? new Date(post.createdTime).toLocaleDateString("zh-CN", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+            })
+          : null
+        return (
+          <div class="relative">
+            <Card
+              title={post.properties.name}
+              content={post.properties.content}
+              tags={post.properties.tags?.map((tag) => tag.name)}
+              category={post.properties.category?.name ?? null}
+              url={post.properties.url}
+              preview={post.preview}
+              createdTime={createdTime}
+            />
+          </div>
+        )
+      })
+    }
+  </div>
+  <div
+    data-pagination-container
+    class="flex justify-center py-4 sm:py-8"
+  >
+    <Pagination page={page} />
+  </div>
+</div>

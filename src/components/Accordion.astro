@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string
+  checked?: boolean
+}
+
+const { title, checked } = Astro.props as unknown as Props
+---
+
+<div class="collapse collapse-plus join-item border-base-300 border-1">
+  <input
+    type="radio"
+    name={`nav-collapse`}
+    checked={checked}
+  />
+  <div class="collapse-title font-semibold">{title}</div>
+  <div class="collapse-content text-sm">
+    <slot />
+  </div>
+</div>

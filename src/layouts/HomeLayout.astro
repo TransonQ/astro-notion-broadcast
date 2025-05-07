@@ -1,0 +1,50 @@
+---
+import { getDatabaseMeta } from "../apis/client"
+import Footer from "../components/Footer.astro"
+import Header from "../components/Header.astro"
+import Nav from "../components/Nav.astro"
+import { cn } from "../lib/cn"
+
+const { icon, tags, categories, title, description } = await getDatabaseMeta()
+---
+
+<div
+  data-home-layout
+  class="h-screen flex flex-col"
+>
+  <Header
+    title={title}
+    description={description}
+    categories={categories}
+    tags={tags}
+    icon={icon}
+  />
+
+  <div
+    data-content
+    class={cn(
+      "w-full p-4 mx-auto max-w-[min(80ch,100%)] flex-1",
+      "flex flex-col gap-4",
+      "md:flex-row md:px-0 md:p-4"
+    )}
+  >
+    <div
+      data-content-layout
+      class="flex-1 overflow-x-auto"
+    >
+      <slot />
+    </div>
+    <div
+      data-nav-layout
+      class="sm:w-64 shrink-0"
+    >
+      <Nav
+        title={title}
+        description={description}
+        categories={categories}
+        tags={tags}
+      />
+    </div>
+  </div>
+  <Footer />
+</div>

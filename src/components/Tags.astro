@@ -1,0 +1,43 @@
+---
+import { cn } from "../lib/cn"
+
+interface Props {
+  title?: string
+  tags?: string[]
+  direction?: "row" | "column"
+  type?: "category" | "tags"
+}
+
+const { title, tags, direction = "column", type } = Astro.props
+const { category, tag } = Astro.params
+const filtered = category || tag
+
+const tagHref = (tag: string) => {
+  if (type === "category") {
+    return `/category/${tag}/1`
+  }
+  if (type === "tags") {
+    return `/tag/${tag}/1`
+  }
+  return "#"
+}
+---
+
+<div class={cn(`flex gap-2`, direction === "row" ? "flex-row" : "flex-col")}>
+  <h2 class={cn({ hidden: !title })}>{title}</h2>
+  <p class="flex flex-wrap gap-2">
+    {
+      tags?.map((tag) => (
+        <a
+          class={cn("badge badge-ghost shrink-0 text-nowrap", {
+            "bg-base-300 border-base-300": type === "category",
+            "border border-base-content": filtered === tag,
+          })}
+          href={tagHref(tag)}
+        >
+          {tag}
+        </a>
+      ))
+    }
+  </p>
+</div>

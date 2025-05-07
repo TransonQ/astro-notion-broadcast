@@ -1,0 +1,31 @@
+---
+import { cn } from "../lib/cn"
+
+interface Props {
+  email: string
+}
+const { email } = Astro.props as Props
+const mailto = `mailto:${email}`
+---
+
+<a
+  class={cn("cursor-pointer", { hidden: !email })}
+  href={mailto}
+  target="_blank"
+  rel="noopener noreferrer"
+  title="Email"
+  aria-label="Email"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    class="fill-current hover:fill-orange-400"
+  >
+    <path
+      d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6
+       c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+    ></path>
+  </svg>
+</a>

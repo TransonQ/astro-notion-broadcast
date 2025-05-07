@@ -1,0 +1,41 @@
+---
+import { SITE } from "../constants"
+import Discord from "./Discord.astro"
+import Email from "./Email.astro"
+import Facebook from "./Facebook.astro"
+import Github from "./Github.astro"
+import Instagram from "./Instagram.astro"
+import Telegram from "./Telegram.astro"
+import Twitter from "./Twitter.astro"
+import Youtube from "./Youtube.astro"
+---
+
+<footer class="footer sm:footer-horizontal bg-base-300 text-base-content items-center p-4">
+  <aside class="grid-flow-row items-center md:grid-flow-col">
+    <p>
+      Copyright © {new Date().getFullYear()} - {SITE.COPYRIGHT}
+    </p>
+    <span class="text-xs text-zinc-600 opacity-70">
+      Powered by
+      <a
+        class="link hover:text-primary"
+        href="https://github.com/TransonQ/astro-notion-broadcast"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Notion Broadcast"
+      >
+        Notion Broadcast
+      </a>
+    </span>
+  </aside>
+  <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+    <Email email={SITE.EMAIL} />
+    <Github href={SITE.GITHUB} />
+    <Twitter href={SITE.TWITTER} />
+    <Youtube href={SITE.YOUTUBE} />
+    <Telegram href={SITE.TELEGRAM} />
+    <Facebook href={SITE.FACEBOOK} />
+    <Instagram href={SITE.INSTAGRAM} />
+    <Discord href={SITE.DISCORD} />
+  </nav>
+</footer>

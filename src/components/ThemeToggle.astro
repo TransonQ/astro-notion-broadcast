@@ -1,0 +1,59 @@
+---
+import Sun from "./Sun.astro"
+import Moon from "./Moon.astro"
+---
+
+<label class="swap swap-rotate px-2">
+  <input
+    type="checkbox"
+    class="theme-controller"
+    id="theme-toggle"
+  />
+  <Sun className="swap-off" />
+  <Moon className="swap-on" />
+</label>
+
+<script is:inline>
+  /** is:inline will not be included in the bundle */
+  /** theme config - daisy UI */
+  const THEME_DEFAULT = "light"
+  const THEME_REVERSE = "dark"
+  const validThemes = [THEME_DEFAULT, THEME_REVERSE]
+
+  const getLocalTheme = () => localStorage.getItem("theme")
+  const setLocalTheme = (value) => localStorage.setItem("theme", value)
+  const getTheme = () => document.documentElement.getAttribute("data-theme")
+  const setTheme = (value) => document.documentElement.setAttribute("data-theme", value)
+
+  initTheme()
+
+  const btn = document.querySelector("#theme-toggle")
+
+  if (!btn.value) {
+    btn.value = THEME_DEFAULT
+  }
+
+  btn.checked = getTheme() === THEME_DEFAULT
+
+  btn.addEventListener("change", () => {
+    const newTheme = btn.checked ? THEME_DEFAULT : THEME_REVERSE
+    setTheme(newTheme)
+    setLocalTheme(newTheme)
+  })
+
+  function initTheme() {
+    let initialTheme
+    const hasTheme = validThemes.includes(getLocalTheme())
+    if (hasTheme) {
+      initialTheme = getLocalTheme()
+    } else {
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+      if (prefersDark) {
+        initialTheme = THEME_REVERSE
+      } else {
+        initialTheme = THEME_DEFAULT
+      }
+    }
+    setTheme(initialTheme)
+  }
+</script>

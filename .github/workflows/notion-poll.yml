@@ -1,0 +1,28 @@
+name: Notion Polling Job
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # UTC 2 AM
+    - cron: "0 4 * * *" # UTC 4 AM
+    - cron: "0 6 * * *" # UTC 6 AM
+    - cron: "0 7 * * *" # UTC 7 AM
+    - cron: "0 8 * * *" # UTC 8 AM
+    - cron: "0 9 * * *" # UTC 9 AM
+    - cron: "0 10 * * *" # UTC 10 AM
+    - cron: "0 12 * * *" # UTC 12 PM
+    - cron: "0 14 * * *" # UTC 2 PM
+    - cron: "0 15 * * *" # UTC 3 PM
+  workflow_dispatch:
+
+jobs:
+  poll-notion:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Webhook Trigger Script
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          chmod +x ./trigger-webhook.sh
+          ./trigger-webhook.sh
