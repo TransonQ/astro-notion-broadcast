@@ -155,3 +155,9 @@ With this setup, any updates to your Notion database will automatically be refle
 ## Contributing
 
 Issues and pull requests are welcome!
+
+## Inspiration / Thanks
+
+This project was inspired by [otoyo/astro-notion-blog](https://github.com/otoyo/astro-notion-blog). Many thanks to its author for the inspiration and ideas.
+
+Special thanks to [ccbikai/BroadcastChannel](https://github.com/ccbikai/BroadcastChannel), which provided ideas for the Notion database implementation in this project.

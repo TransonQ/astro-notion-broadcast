@@ -152,3 +152,9 @@ MIT 许可证
 ## 贡献
 
 欢迎提交问题和拉取请求！
+
+## 致谢
+
+本项目灵感来源于 [otoyo/astro-notion-blog](https://github.com/otoyo/astro-notion-blog)，感谢其作者的开源贡献。
+
+特别感谢 [ccbikai/BroadcastChannel](https://github.com/ccbikai/BroadcastChannel) 项目，为本项目的 Notion database 实现提供了思路。
