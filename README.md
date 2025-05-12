@@ -33,7 +33,7 @@ You need to create a database in Notion with the following properties:
 - `url` (URL): Original article link
 - `created_at` (Creation Time): Sorted
 
-> You can quickly create your Notion database by duplicating the Notion template: [Notion Broadcast Template](https://shard-pint-734.notion.site/1eb4be1c91708053803feeafaebd3c14?v=1eb4be1c9170802ea1e7000ce0f6f42f&pvs=4).
+> You can quickly create your Notion database by duplicating the Notion template: [Notion Broadcast Template](https://fx89757.notion.site/1eb4be1c91708053803feeafaebd3c14?v=1eb4be1c9170802ea1e7000ce0f6f42f&pvs=73).
 
 ### Prerequisites
 

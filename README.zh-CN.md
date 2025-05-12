@@ -31,7 +31,7 @@
 - `url` (网址): 原始文章链接
 - `created_at` (创建时间): 排序需要
 
-> 你也可以通过复制 notion 模板: [Notion Broadcast Template](https://shard-pint-734.notion.site/1eb4be1c91708053803feeafaebd3c14?v=1eb4be1c9170802ea1e7000ce0f6f42f&pvs=4) 来快速创建你的 notion database.
+> 你也可以通过复制 notion 模板: [Notion Broadcast Template](https://fx89757.notion.site/1eb4be1c91708053803feeafaebd3c14?v=1eb4be1c9170802ea1e7000ce0f6f42f&pvs=73) 来快速创建你的 notion database.
 
 ### 前提条件
 
